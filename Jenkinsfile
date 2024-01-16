@@ -5,6 +5,11 @@ def GIT_BRANCH = env.BRANCH_NAME
 pipeline {
     agent any
 
+    parameters {
+        choice(name: 'WHICH_ENV', choices:[1,2], description: 'Select the environment')
+    }
+
+
     stages {
         stage('Build') {
             steps {
