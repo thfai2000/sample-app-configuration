@@ -1,3 +1,7 @@
+def VERSION_SNAPSHOT_REPO_NAME = "thfai2000/version_snapshots"
+def VERSION_SNAPSHOT_FOLDER_NAME = "sample-app"
+def GIT_BRANCH = env.BRANCH_NAME
+
 pipeline {
     agent any
 
@@ -21,9 +25,7 @@ pipeline {
 }
 
 
-// def VERSION_SNAPSHOT_REPO_NAME = "thfai2000/version_snapshots"
-// def VERSION_SNAPSHOT_FOLDER_NAME = "sample-app"
-// def GIT_BRANCH = env.BRANCH_NAME
+
 
 // pipeline {
 //     agent any
