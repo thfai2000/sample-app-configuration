@@ -11,7 +11,7 @@ pipeline {
                 def params = input(
                     message: 'Provide the build information',
                     parameters [
-                        choice(name: 'WHICH_ENV', choices: getFolderNames(), description: 'Select the environment')
+                        choice(name: 'WHICH_ENV', choices: getFolderNames(), description: 'Select the environment'),
                         choice(name: 'VERSION_SNAPSHOT', choices: getSnapshotVersions(), description: 'Select the snapshot version')
                     ]
                 )
