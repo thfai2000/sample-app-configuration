@@ -4,57 +4,58 @@ def GIT_BRANCH = env.BRANCH_NAME
 
 pipeline {
     agent any
+    node {
+        parameters {
+            choice(name: 'WHICH_ENV', choices: getFolderNames(), description: 'Select the environment')
+            choice(name: 'VERSION_SNAPSHOT', choices: getSnapshotVersions(), description: 'Select the snapshot version')
+        }
 
-    parameters {
-        choice(name: 'WHICH_ENV', choices: getFolderNames(), description: 'Select the environment')
-        choice(name: 'VERSION_SNAPSHOT', choices: getSnapshotVersions(), description: 'Select the snapshot version')
-    }
+        stages {
+            // stage('Input') {
+            //     steps{
+            //         script{
+            //             def params = input(
+            //                 id: 'userInput', 
+            //                 message: 'Provide the build information',
+            //                 parameters [
+            //                     string(defaultValue: 'None',
+            //                                     description: 'Path of config file',
+            //                                     name: 'Config')
+            //                     // choice(name: 'WHICH_ENV', choices: getFolderNames(), description: 'Select the environment'),
+            //                     // choice(name: 'VERSION_SNAPSHOT', choices: getSnapshotVersions(), description: 'Select the snapshot version')
+            //                     // choice(name: 'WHICH_ENV', choices: [1,2], description: 'Select the environment'),
+            //                     // choice(name: 'VERSION_SNAPSHOT', choices: [1,2], description: 'Select the snapshot version')
+            //                 ]
+            //             )
+            //         }
+            //     }
+            // }
 
-    stages {
-        // stage('Input') {
-        //     steps{
-        //         script{
-        //             def params = input(
-        //                 id: 'userInput', 
-        //                 message: 'Provide the build information',
-        //                 parameters [
-        //                     string(defaultValue: 'None',
-        //                                     description: 'Path of config file',
-        //                                     name: 'Config')
-        //                     // choice(name: 'WHICH_ENV', choices: getFolderNames(), description: 'Select the environment'),
-        //                     // choice(name: 'VERSION_SNAPSHOT', choices: getSnapshotVersions(), description: 'Select the snapshot version')
-        //                     // choice(name: 'WHICH_ENV', choices: [1,2], description: 'Select the environment'),
-        //                     // choice(name: 'VERSION_SNAPSHOT', choices: [1,2], description: 'Select the snapshot version')
-        //                 ]
-        //             )
-        //         }
-        //     }
-        // }
+            stage('Loop through Artifacts') {
+                steps {
+                    script{
+                        def artifacts = readYaml(url: getSnapshotUrl(params.VERSION_SNAPSHOT))
 
-        stage('Loop through Artifacts') {
-            steps {
-                script{
-                    def artifacts = readYaml(url: getSnapshotUrl(params.VERSION_SNAPSHOT))
+                        for (def artifact in artifacts) {
+                            stage("Artifact: ${artifact.name}") {
+                                def targetFolder = sh(script: 'dirname $0', returnStdout: true).trim() + "/${params.WHICH_ENV}"
+                                def hostYamlFiles = findFiles(glob: "${targetFolder}/hosts/*.yaml")
 
-                    for (def artifact in artifacts) {
-                        stage("Artifact: ${artifact.name}") {
-                            def targetFolder = sh(script: 'dirname $0', returnStdout: true).trim() + "/${params.WHICH_ENV}"
-                            def hostYamlFiles = findFiles(glob: "${targetFolder}/hosts/*.yaml")
+                                for (def hostYamlFile in hostYamlFiles) {
+                                    def hostYaml = readYaml(file: hostYamlFile.path)
+                                    def hostComponents = hostYaml.host_components
 
-                            for (def hostYamlFile in hostYamlFiles) {
-                                def hostYaml = readYaml(file: hostYamlFile.path)
-                                def hostComponents = hostYaml.host_components
-
-                                for (def component in hostComponents) {
-                                    if (component.name == artifact.name) {
-                                        echo "Artifact '${artifact.name}' found in Host YAML: ${hostYamlFile.name}"
+                                    for (def component in hostComponents) {
+                                        if (component.name == artifact.name) {
+                                            echo "Artifact '${artifact.name}' found in Host YAML: ${hostYamlFile.name}"
+                                        }
                                     }
                                 }
                             }
                         }
                     }
+                
                 }
-            
             }
         }
     }
