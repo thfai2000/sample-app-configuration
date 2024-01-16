@@ -5,16 +5,14 @@ def GIT_BRANCH = env.BRANCH_NAME
 pipeline {
     agent any
 
-
-
     stages {
         stage('Input') {
             steps {
-                input(
+                def params = input(
                     message: 'Provide the build information',
                     parameters [
-                    choice(name: 'WHICH_ENV', choices: getFolderNames(), description: 'Select the environment')
-                    choice(name: 'VERSION_SNAPSHOT', choices: getSnapshotVersions(), description: 'Select the snapshot version')
+                        choice(name: 'WHICH_ENV', choices: getFolderNames(), description: 'Select the environment')
+                        choice(name: 'VERSION_SNAPSHOT', choices: getSnapshotVersions(), description: 'Select the snapshot version')
                     ]
                 )
             }
