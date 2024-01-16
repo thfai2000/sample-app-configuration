@@ -94,7 +94,10 @@ pipeline {
 def getFolderNames() {
     node {
         def currentDir = sh(script: 'pwd', returnStdout: true).trim()
-        def folderList = sh(script: "ls -d ${currentDir}/* | xargs -n 1 basename", returnStdout: true).trim().split('\n')
+        sh(script: "ls *")
+        sh(script: "ls -d *")
+
+        def folderList = sh(script: "ls -d * | xargs -n 1 basename", returnStdout: true).trim().split('\n')
         return folderList
     }
 }
