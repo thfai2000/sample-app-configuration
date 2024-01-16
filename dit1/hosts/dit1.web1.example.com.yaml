@@ -1,0 +1,19 @@
+---
+host: 127.0.0.1
+hostname: xxxxxx
+host_credential: aaaa
+host_groups:
+- APP
+- DIT1
+props:
+  e: 1
+  f: 2
+host_components:
+- name: component1
+  props:
+    a: 1
+    b: 2
+- name: component2
+  props:
+    c: 1
+    d: 2

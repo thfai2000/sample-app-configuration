@@ -1,0 +1,43 @@
+
+1. Provided there are environment variables $WHICH_ENV, $VERSION_SNAPSHOT. 
+2. You can find the "target" folder (with the name "$WHICH_ENV") at the same directory level of the current Jenkinsfile
+3. The target folder contains a list of YAML files which each represent a information of a host machine. We called them Host YAML
+4. Each Host YAML file contains "host_components" (artifacts) like below:
+
+    host: 127.0.0.1
+    hostname: xxxxxx
+    host_credential: aaaa
+    host_groups:
+    - APP
+    - DIT1
+    props:
+    e: 1
+    f: 2
+    host_components:
+    - name: component1
+    props:
+        a: 1
+        b: 2
+    - name: component2
+    props:
+        c: 1
+        d: 2
+
+4. The $VERSION_SNAPSHOT is the web url which can retrieve a YAML file which is an array of items with attributes (name, artifact_path, version)
+5. The stages of Jenkinsfile includes:
+   - loop through all artifacts declared in the "snapshot" YAML file
+   - there is a nested-loop that loop all Host YAML in the target folder
+   - for each Host YAML, if it contains the artifact, then echo found message
+
+
+    # loop the component in the snapshot
+    # loop each host, find the component
+
+        #if the component exists for that host
+            # generate the values.yaml for that component on that host
+            # aggregate the by groups props + host props + component props
+
+            # get credential of hosts, ssh hosts
+            # deploy the artifact to that host
+            # deploy the scripts + values.yaml to that host
+
