@@ -4,36 +4,36 @@ def GIT_BRANCH = env.BRANCH_NAME
 
 pipeline {
     agent any
-    node {
-        parameters {
-            choice(name: 'WHICH_ENV', choices: getFolderNames(), description: 'Select the environment')
-            choice(name: 'VERSION_SNAPSHOT', choices: getSnapshotVersions(), description: 'Select the snapshot version')
-        }
+    
+        // parameters {
+        //     choice(name: 'WHICH_ENV', choices: getFolderNames(), description: 'Select the environment')
+        //     choice(name: 'VERSION_SNAPSHOT', choices: getSnapshotVersions(), description: 'Select the snapshot version')
+        // }
 
         stages {
-            // stage('Input') {
-            //     steps{
-            //         script{
-            //             def params = input(
-            //                 id: 'userInput', 
-            //                 message: 'Provide the build information',
-            //                 parameters [
-            //                     string(defaultValue: 'None',
-            //                                     description: 'Path of config file',
-            //                                     name: 'Config')
-            //                     // choice(name: 'WHICH_ENV', choices: getFolderNames(), description: 'Select the environment'),
-            //                     // choice(name: 'VERSION_SNAPSHOT', choices: getSnapshotVersions(), description: 'Select the snapshot version')
-            //                     // choice(name: 'WHICH_ENV', choices: [1,2], description: 'Select the environment'),
-            //                     // choice(name: 'VERSION_SNAPSHOT', choices: [1,2], description: 'Select the snapshot version')
-            //                 ]
-            //             )
-            //         }
-            //     }
-            // }
+            stage('Input') {
+                steps{
+                    node {
+                        def params = input(
+                            id: 'userInput', 
+                            message: 'Provide the build information',
+                            parameters [
+                                string(defaultValue: 'None',
+                                                description: 'Path of config file',
+                                                name: 'Config')
+                                // choice(name: 'WHICH_ENV', choices: getFolderNames(), description: 'Select the environment'),
+                                // choice(name: 'VERSION_SNAPSHOT', choices: getSnapshotVersions(), description: 'Select the snapshot version')
+                                // choice(name: 'WHICH_ENV', choices: [1,2], description: 'Select the environment'),
+                                // choice(name: 'VERSION_SNAPSHOT', choices: [1,2], description: 'Select the snapshot version')
+                            ]
+                        )
+                    }
+                }
+            }
 
             stage('Loop through Artifacts') {
                 steps {
-                    script{
+                    node {
                         def artifacts = readYaml(url: getSnapshotUrl(params.VERSION_SNAPSHOT))
 
                         for (def artifact in artifacts) {
@@ -58,7 +58,7 @@ pipeline {
                 }
             }
         }
-    }
+    
 }
 
 def getFolderNames() {
