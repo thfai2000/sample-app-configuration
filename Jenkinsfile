@@ -6,7 +6,7 @@ pipeline {
     agent any
 
     parameters {
-        choice(name: 'WHICH_ENV', choices:[1,2], description: 'Select the environment')
+        choice(name: 'WHICH_ENV', choices: getFolderNames(), description: 'Select the environment')
     }
 
 
@@ -91,11 +91,11 @@ pipeline {
     
 // }
 
-// def getFolderNames() {
-//     def currentDir = sh(script: 'dirname $0', returnStdout: true).trim()
-//     def folderList = sh(script: "ls -d ${currentDir}/*/ | awk -F/ '{print \$NF}'", returnStdout: true).trim().split('\n')
-//     return folderList
-// }
+def getFolderNames() {
+    def currentDir = sh(script: 'dirname $0', returnStdout: true).trim()
+    def folderList = sh(script: "ls -d ${currentDir}/*/ | awk -F/ '{print \$NF}'", returnStdout: true).trim().split('\n')
+    return folderList
+}
 
 // def getSnapshotVersions() {
 //     def gitSourceDirectory = '/path/to/git/source/directory' // Replace with your actual Git source directory
