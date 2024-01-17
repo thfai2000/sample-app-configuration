@@ -6,7 +6,7 @@ pipeline {
     agent any
 
     parameters {
-        choice(name: 'WHICH_ENV', choices: [1,2,3,4], description: 'Select the environment')
+        choice(name: 'WHICH_ENV', choices: [1,2,3,6], description: 'Select the environment')
     }
 
 
@@ -15,13 +15,10 @@ pipeline {
 
         stage('Access Files') {
             steps {
-                script {
-                    def workspacePath = pwd()
-                    def files = findFiles(glob: '**/*', excludes: '')
-                    
-                    files.each { file ->
-                        echo "File: ${file}"
-                        // Perform operations on the file
+                node {
+                    def currentDir = sh(script: 'pwd', returnStdout: true).trim()
+                    dir(currentDir){
+                        sh(script: "ls")
                     }
                 }
             }
@@ -109,8 +106,11 @@ pipeline {
 def getFolderNames() {
     node {
         def currentDir = sh(script: 'pwd', returnStdout: true).trim()
-        sh(script: "ls *")
-        sh(script: "ls -d *")
+        dir(currentDir){
+
+            sh(script: "ls *")
+            sh(script: "ls -d *")
+        }
 
         def folderList = sh(script: "ls -d * | xargs -n 1 basename", returnStdout: true).trim().split('\n')
         return folderList
