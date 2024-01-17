@@ -6,11 +6,30 @@ pipeline {
     agent any
 
     parameters {
-        choice(name: 'WHICH_ENV', choices: getFolderNames(), description: 'Select the environment')
+        choice(name: 'WHICH_ENV', choices: [1,2,3], description: 'Select the environment')
     }
 
 
     stages {
+   
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('Access Files') {
+            steps {
+                script {
+                    def workspacePath = pwd()
+                    def files = findFiles(glob: '**/*', excludes: '')
+                    
+                    files.each { file ->
+                        echo "File: ${file}"
+                        // Perform operations on the file
+                    }
+                }
+            }
+        }
         stage('Build') {
             steps {
                 echo 'Building..'
