@@ -6,17 +6,13 @@ pipeline {
     agent any
 
     parameters {
-        choice(name: 'WHICH_ENV', choices: [1,2,3], description: 'Select the environment')
+        choice(name: 'WHICH_ENV', choices: [1,2,3,4], description: 'Select the environment')
     }
 
 
     stages {
    
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
+
         stage('Access Files') {
             steps {
                 script {
