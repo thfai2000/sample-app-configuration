@@ -9,11 +9,8 @@ props:
   e: 1
   f: 2
 host_components:
-- name: component1
-  props:
-    a: 1
-    b: 2
-- name: component2
+- name: deploy
+- name: web1
   props:
     c: 1
     d: 2
