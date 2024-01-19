@@ -9,7 +9,6 @@ props:
   e: 1
   f: 2
 host_components:
-- name: deploy
 - name: web1
   props:
     c: 1
