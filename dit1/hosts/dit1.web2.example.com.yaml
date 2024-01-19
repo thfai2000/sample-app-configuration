@@ -1,6 +1,6 @@
 ---
 host: 127.0.0.1
-hostname: xxxxxx
+hostname: bbbbb
 host_credential: aaaa
 host_groups:
 - APP
