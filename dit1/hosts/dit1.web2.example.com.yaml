@@ -5,9 +5,10 @@ host_credential: aaaa
 host_groups:
 - APP
 - Common
+- HV
 props:
-  e: 1
-  f: 2
+  e: machine2
+  f: machine2
 host_components:
 - name: deploy
 - name: web2
@@ -16,5 +17,5 @@ host_components:
     d: 2
 - name: web3
   props:
-    c: 1
-    d: 2
+    c: yyyy
+    d: xxxx

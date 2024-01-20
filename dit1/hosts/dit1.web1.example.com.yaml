@@ -5,12 +5,16 @@ host_credential: aaaa
 host_groups:
 - APP
 - Common
+- ST
 props:
-  e: 1
-  f: 2
+  e: machine1
+  f: machine1
+  app_config:
+    app_binary_dir: /opt/machine1/binary
+  
 host_components:
 - name: deploy
 - name: web1
   props:
-    c: 1
-    d: 2
+    c: aaaaa
+    d: eeeee
