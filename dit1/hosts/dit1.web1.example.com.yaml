@@ -4,7 +4,7 @@ hostname: aaaaa
 host_credential: aaaa
 host_groups:
 - APP
-- DIT1
+- Common
 props:
   e: 1
   f: 2
