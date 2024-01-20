@@ -1,2 +1,8 @@
-aaa: 555
-bbb: 444XXXX
+app_config:
+  connectivity:
+    solace:
+      host: aaa
+      vpn: aaa
+  app_binary_dir: /opt/ptrm/binary
+  
+  

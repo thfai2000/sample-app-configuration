@@ -1,8 +1,11 @@
-app_config:
-  connectivity:
-    solace:
-      host: aaa
-      vpn: aaa
-  app_binary_dir: /opt/ptrm/binary
-  
-  
+application_name: SAMPLE_APP
+home_dir: /home/eddiehftang
+app_binary_dir: /opt/sample-app/${p:hostname}
+app_service_account: eddiehftang
+app_service_account_group: eddiehftang
+kerberos_keytab_path:
+kerberos_tkt_path:
+download_dir: ${p:app_binary_dir}/download
+app_log_dir: /var/log/sample-app/${p:hostname}
+deploy_dir: ${p:app_binary_dir}/deploy
+download_deploy_dir: ${p:app_binary_dir}/download/deploy
