@@ -1,0 +1,21 @@
+---
+host: 127.0.0.1
+hostname: bbbbb
+host_credential: aaaa
+host_groups:
+- APP
+- Common
+- HV
+props:
+  e: machine2
+  f: machine2
+host_components:
+- name: deploy
+- name: web2
+  props:
+    c: 1
+    d: 2
+- name: web3
+  props:
+    c: yyyy
+    d: xxxxA

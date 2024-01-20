@@ -1,0 +1,20 @@
+---
+host: 127.0.0.1
+hostname: aaaaa
+host_credential: aaaa
+host_groups:
+- APP
+- Common
+- ST
+props:
+  e: machine1
+  f: machine1
+  app_config:
+    app_binary_dir: /opt/machine1/binary
+  
+host_components:
+- name: deploy
+- name: web1
+  props:
+    c: aaaaa
+    d: eeeee
