@@ -7,11 +7,9 @@ host_groups:
 - Common
 - ST
 props:
+  host_label: machine1
   e: machine1
   f: machine1
-  app_config:
-    app_binary_dir: /opt/machine1/binary
-  
 host_components:
 - name: deploy
 - name: web1
