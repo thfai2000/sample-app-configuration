@@ -1,6 +1,6 @@
 ---
 host: 172.31.65.45
-hostname: aaaaa
+hostname: DESKTOP-LUVJ4LV
 host_credential: aaaa
 host_groups:
 - APP
