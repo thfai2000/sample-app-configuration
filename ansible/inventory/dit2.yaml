@@ -1,0 +1,43 @@
+all: # keys must be unique, i.e. only one 'hosts' per group
+    hosts:
+        machine1:
+            ansible_host: machine1
+            test: m1
+        machine2:
+            ansible_host: machine2
+            test: m2
+        machine3:
+            ansible_host: machine3
+            test: m3
+        machine4:
+            ansible_host: machine4
+            test: m4
+    vars:
+        global_var1: global_value
+        ansible_user: jenkins
+        ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+    children:   # key order does not matter, indentation does
+        st:
+            hosts:
+                machine1:
+                machine2:
+            vars:
+                which_site: st
+        hv:
+            hosts:
+                machine3:
+                machine4:
+            vars:
+                which_site: hv
+        app:
+            hosts:
+                machine2:
+                machine4:
+            vars:
+                group_name: app
+        web:
+            hosts:
+                machine1:
+                machine3:
+            vars:
+                group_name: web
