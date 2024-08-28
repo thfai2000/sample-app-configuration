@@ -3,5 +3,3 @@ all: # keys must be unique, i.e. only one 'hosts' per group
         ansible_user: jenkins
         ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
         global_var2: common
-        component1_artifact_url: https://raw.githubusercontent.com/thfai2000/sample-app/release/{{ component1_artifact_version }}/app.html
-        component2_artifact_url: https://raw.githubusercontent.com/thfai2000/sample-app/release/{{ component2_artifact_version }}/app.html
