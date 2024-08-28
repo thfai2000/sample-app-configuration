@@ -7,6 +7,9 @@ all: # keys must be unique, i.e. only one 'hosts' per group
         app:
             vars:
                 component_artifact_url: https://raw.githubusercontent.com/thfai2000/sample-app/release/{{ component_version }}/app.html
+                component_artifact_dest: /www/.
+                
         web:
             vars:
-                component_artifact_url: https://raw.githubusercontent.com/thfai2000/sample-app/release/{{ component_version }}/app.html
+                component_artifact_url: https://raw.githubusercontent.com/thfai2000/sample-app/release/{{ component_version }}/app.conf
+                component_artifact_dest: /etc/nginx/conf.d/.
