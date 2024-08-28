@@ -34,13 +34,9 @@ all: # keys must be unique, i.e. only one 'hosts' per group
                 machine2:
                 machine3:
                 machine4:
-            vars:
-                group_name: app
         web:
             hosts:
                 machine1:
                 machine2:
                 machine3:
                 machine4:
-            vars:
-                group_name: web
