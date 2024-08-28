@@ -10,9 +10,13 @@ all: # keys must be unique, i.e. only one 'hosts' per group
                 component_name: app
                 component_artifact_url: https://raw.githubusercontent.com/thfai2000/sample-app/release/{{ component_version }}/app.html.j2
                 component_artifact_dest: /www/.
+                component_start_script_path: "service nginx restart"
+                component_stop_script_path: "service nginx stop"
         web:
             vars:
                 component_name: web
                 component_artifact_url: https://raw.githubusercontent.com/thfai2000/sample-app/release/{{ component_version }}/app.conf.j2
                 component_artifact_dest: /etc/nginx/conf.d/.
+                component_start_script_path: "service nginx restart"
+                component_stop_script_path: "service nginx stop"
                 nginx_listen_port: 8081
