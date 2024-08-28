@@ -4,11 +4,8 @@ all: # keys must be unique, i.e. only one 'hosts' per group
         ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
         global_var2: common
         artifacts_dir: artifacts
-    children:   # key order does not matter, indentation does
-        app:
-            vars:
-                group_name: app
-                component_name: app
+        components:
+            app:
                 component_artifact_url: https://raw.githubusercontent.com/thfai2000/sample-app/release/{{ component_version }}/app.html.j2
                 component_install_script: |
                     sudo mkdir -p /www
@@ -16,10 +13,7 @@ all: # keys must be unique, i.e. only one 'hosts' per group
                 component_start_script: "sudo service nginx restart"
                 component_stop_script: "sudo service nginx stop"
                 component_service_account: 'jenkins'
-        web:
-            vars:
-                group_name: web
-                component_name: web
+            web:
                 component_artifact_url: https://raw.githubusercontent.com/thfai2000/sample-app/release/{{ component_version }}/app.conf.j2
                 component_install_script: |
                     sudo mv artifacts/web/app.conf /etc/nginx/conf.d/.
