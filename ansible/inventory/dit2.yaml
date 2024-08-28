@@ -14,8 +14,8 @@ all: # keys must be unique, i.e. only one 'hosts' per group
             test: m3
             global_var2: m3_global_var
         machine4:
-            components: ['web','app']
             ansible_host: machine4
+            components: ['web','app']
             test: m4
     vars:
         global_var1: dit2
