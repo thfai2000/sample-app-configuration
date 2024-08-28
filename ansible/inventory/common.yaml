@@ -12,6 +12,7 @@ all: # keys must be unique, i.e. only one 'hosts' per group
                 component_artifact_dest: /www/.
                 component_start_script_path: "service nginx restart"
                 component_stop_script_path: "service nginx stop"
+                component_service_account: 'root'
         web:
             vars:
                 component_name: web
@@ -19,4 +20,5 @@ all: # keys must be unique, i.e. only one 'hosts' per group
                 component_artifact_dest: /etc/nginx/conf.d/.
                 component_start_script_path: "service nginx restart"
                 component_stop_script_path: "service nginx stop"
+                component_service_account: 'root'
                 nginx_listen_port: 8081
