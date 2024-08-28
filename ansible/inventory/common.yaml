@@ -3,3 +3,10 @@ all: # keys must be unique, i.e. only one 'hosts' per group
         ansible_user: jenkins
         ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
         global_var2: common
+    children:   # key order does not matter, indentation does
+        app:
+            vars:
+                component_artifact_url: https://raw.githubusercontent.com/thfai2000/sample-app/release/{{ component_version }}/app.html
+        web:
+            vars:
+                component_artifact_url: https://raw.githubusercontent.com/thfai2000/sample-app/release/{{ component_version }}/app.html
