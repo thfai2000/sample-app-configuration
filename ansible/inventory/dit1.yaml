@@ -13,9 +13,7 @@ all: # keys must be unique, i.e. only one 'hosts' per group
             ansible_host: machine4
             test: m4
     vars:
-        global_var1: global_value
-        ansible_user: jenkins
-        ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+        global_var1: dit1
     children:   # key order does not matter, indentation does
         st:
             hosts:
