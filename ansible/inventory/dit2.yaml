@@ -19,6 +19,7 @@ all: # keys must be unique, i.e. only one 'hosts' per group
             test: m4
     vars:
         global_var1: dit2
+        encrypted_secret: "{{ 'xxxxx' | jasypt_encrypt('PBEWITHSHA256AND256BITAES-CBC-BC', 'hello') }}"
     children:   # key order does not matter, indentation does
         st:
             hosts:

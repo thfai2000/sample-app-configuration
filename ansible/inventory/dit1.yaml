@@ -18,7 +18,8 @@ all: # keys must be unique, i.e. only one 'hosts' per group
             components: ['web','app']
             test: m4
     vars:
-        global_var1: dit1
+        global_var1: dit2
+        encrypted_secret: "{{ 'xxxxx' | jasypt_encrypt('PBEWITHSHA256AND256BITAES-CBC-BC', 'hello') }}"
     children:   # key order does not matter, indentation does
         st:
             hosts:
@@ -38,4 +39,9 @@ all: # keys must be unique, i.e. only one 'hosts' per group
                 machine2:
                 machine3:
                 machine4:
+            vars:
+                group_name: frontend
         backend:
+            hosts:
+            vars:
+                group_name: backend
